@@ -3,7 +3,7 @@ slug: admin2-site-readme
 type: plugin
 version: 0.9.1
 description: 'Shows a site''s own ReadMe in the Admin 2 sidebar, from a Markdown file on GitHub or in the site itself. The people editing a site can then read its how-tos where they work.'
-icon: book-open
+icon: book
 author:
   name: HibbittsDesign.org
   email: hello@hibbittsdesign.org
