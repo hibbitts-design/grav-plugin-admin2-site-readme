@@ -1,3 +1,9 @@
+# v0.9.3
+## 10/22/2026
+
+1. [](#improved)
+    * Demo link added to the blueprint
+
 # v0.9.2
 ## 10/22/2026
 
