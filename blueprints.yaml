@@ -1,7 +1,7 @@
 name: Admin2 Site ReadMe
 slug: admin2-site-readme
 type: plugin
-version: 0.9.2
+version: 0.9.3
 description: 'Shows a site''s own ReadMe in the Admin 2 sidebar, from a Markdown file on GitHub, Codeberg or in the site itself. The people editing a site can then read its how-tos where they work.'
 icon: book
 author:
@@ -9,6 +9,7 @@ author:
   email: hello@hibbittsdesign.org
   url: https://hibbittsdesign.org
 homepage: https://github.com/hibbitts-design/grav-plugin-admin2-site-readme
+demo: https://demo.hibbittsdesign.org/grav-plugin-admin2-site-readme/admin/plugin/admin2-site-readme
 docs: https://github.com/hibbitts-design/grav-plugin-admin2-site-readme/blob/main/README.md
 keywords: admin, admin2, readme, guide, documentation, markdown
 bugs: https://github.com/hibbitts-design/grav-plugin-admin2-site-readme/issues
