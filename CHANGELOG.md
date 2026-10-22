@@ -1,3 +1,9 @@
+# v0.9.2
+## 10/22/2026
+
+1. [](#new)
+    * Codeberg support: a Codeberg page address loads its Markdown file, and relative links open Codeberg's pages, as with GitHub
+
 # v0.9.1
 ## 10/22/2026
 
