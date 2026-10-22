@@ -1,6 +1,6 @@
 # Admin2 Site ReadMe Plugin
 
-**Admin2 Site ReadMe** is a [Grav](https://getgrav.org) plugin for Grav 2 that adds a **Site ReadMe** item to the Admin 2 sidebar. It shows a Markdown file, such as a README on GitHub, inside Admin, so the people editing a site can read its how-tos, guidelines or notes where they work – and it stays up to date, as it's fetched from the file itself.
+**Admin2 Site ReadMe** is a [Grav](https://getgrav.org) plugin for Grav 2 that adds a **Site ReadMe** item to the Admin 2 sidebar. It shows a Markdown file, such as a README on GitHub or Codeberg, inside Admin, so the people editing a site can read its how-tos, guidelines or notes where they work – and it stays up to date, as it's fetched from the file itself.
 
 ## Where It Helps Most
 
@@ -18,7 +18,7 @@ Needs Grav 2, Admin 2 and the Grav API plugin.
 
 ## Settings
 
-- **Markdown File Address** – the https address of the file, such as a GitHub page address (`github.com/…/blob/…`) or file address (`raw.githubusercontent.com/…`). It can also be a Markdown file in the site itself, such as `user://data/site-readme.md` (in the site's `user/data` folder), for a ReadMe that isn't on GitHub or is private
+- **Markdown File Address** – the https address of the file, such as a GitHub page address (`github.com/…/blob/…`) or file address (`raw.githubusercontent.com/…`), or a Codeberg page address (`codeberg.org/…/src/…`) or file address (`codeberg.org/…/raw/…`). It can also be a Markdown file in the site itself, such as `user://data/site-readme.md` (in the site's `user/data` folder), for a ReadMe that isn't on GitHub or Codeberg, or is private
 - **Page Title** – the page's title in Admin (Site ReadMe by default), such as Workshop Guide, Project Info or Style Guide
 - **Hide File Title** – hides the file's title (its first heading), as the page already has one: a `#` title (the default), a `#` or `##` title (for files that use `##` for their title), or neither. A `###` subtitle straight after the title is hidden too
 - **On This Page Headings** – the heading levels in the On this page list: levels 2–3 (`##` and `###`, the default), level 2 only for a shorter list, or down to level 4. In a file that uses `###` for its sections, such as many Grav pages, the list starts there instead
@@ -40,7 +40,7 @@ Links with an `admin:` address open a screen in Admin, such as `[Pages](admin:/p
 Links to a section of the file, such as `#quick-start`, scroll to that section, and GitHub-style notes (`> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]` and `> [!CAUTION]`) are shown as labelled boxes, as on GitHub.
 
 > [!TIP]
-> Relative links and images in the file are given full addresses, so a README's screenshots still show. Links to other files on GitHub open GitHub's page for that file. Images load from wherever they're hosted, so point the plugin at files you trust.
+> Relative links and images in the file are given full addresses, so a README's screenshots still show. Links to other files on GitHub or Codeberg open that site's page for the file. Images load from wherever they're hosted, so point the plugin at files you trust.
 
 ## How It Works
 

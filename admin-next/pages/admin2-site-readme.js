@@ -485,8 +485,10 @@ function escapeText(text) {
 }
 
 // A shorter form of the file's address for the toolbar, such as github.com/owner/repo/README.md
+// (or codeberg.org/owner/repo/main/README.md, without Codeberg's raw/branch/ part)
 function shortAddress(address) {
     return String(address || '').replace(/^https:\/\/(raw\.githubusercontent\.com|github\.com)\//, 'github.com/')
+        .replace(/^(https:\/\/codeberg\.org\/[^/]+\/[^/]+\/)(raw|src)\/(branch|tag|commit)\//, '$1')
         .replace(/^https:\/\//, '');
 }
 

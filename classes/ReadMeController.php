@@ -96,8 +96,8 @@ class ReadMeController extends AbstractApiController
      */
     private function remoteGuide(string $address, bool $refresh): array
     {
-        // a GitHub page address becomes the raw file's address
-        $address = $this->rawGitHubAddress($address);
+        // a GitHub or Codeberg page address becomes the raw file's address
+        $address = $this->rawFileAddress($address);
 
         // the cached copies are named after the address, so a new address fetches the new file
         $cache = $this->grav['cache'];
@@ -199,15 +199,22 @@ class ReadMeController extends AbstractApiController
     }
 
     /**
-     * Changes a GitHub page address (github.com/owner/repo/blob/branch/README.md) to the raw file's address
-     * (raw.githubusercontent.com/owner/repo/branch/README.md), which gives the Markdown. refs/heads/ is removed
-     * from raw addresses (GitHub serves the same file), so the branch always follows the repository's name, as
-     * fullAddresses() expects. Other addresses are returned as they are.
+     * Changes a GitHub or Codeberg page address to the raw file's address, which gives the Markdown:
+     *   - GitHub: github.com/owner/repo/blob/branch/README.md becomes raw.githubusercontent.com/owner/repo/branch/
+     *     README.md. refs/heads/ is removed from raw addresses (GitHub serves the same file), so the branch always
+     *     follows the repository's name, as fullAddresses() expects
+     *   - Codeberg: codeberg.org/owner/repo/src/branch/main/README.md becomes codeberg.org/owner/repo/raw/branch/
+     *     main/README.md (tag/ and commit/ addresses work the same way)
+     * Other addresses are returned as they are.
      */
-    private function rawGitHubAddress(string $address): string
+    private function rawFileAddress(string $address): string
     {
         if (preg_match('#^https://github\.com/([^/]+)/([^/]+)/blob/(.+)$#', $address, $parts)) {
             $address = 'https://raw.githubusercontent.com/' . $parts[1] . '/' . $parts[2] . '/' . $parts[3];
+        }
+
+        if (preg_match('#^https://codeberg\.org/([^/]+)/([^/]+)/src/((?:branch|tag|commit)/.+)$#', $address, $parts)) {
+            $address = 'https://codeberg.org/' . $parts[1] . '/' . $parts[2] . '/raw/' . $parts[3];
         }
 
         return preg_replace('#^(https://raw\.githubusercontent\.com/[^/]+/[^/]+/)refs/heads/#', '$1', $address);
@@ -288,13 +295,17 @@ class ReadMeController extends AbstractApiController
         $folder = substr($address, 0, strrpos($address, '/') + 1);
         // where addresses starting with / begin: the top of the site (http:// too, for a site on this computer)...
         $top = preg_replace('#^(https?://[^/]+).*$#', '$1', $address);
-        // ...or, on GitHub, the top of the repository, as / means in a GitHub README
+        // ...or, on GitHub and Codeberg, the top of the repository, as / means in their READMEs
         $onGitHub = (bool) preg_match('#^(https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+)/#', $address, $repository);
         if ($onGitHub) {
             $top = $repository[1];
         }
+        $onCodeberg = (bool) preg_match('#^(https://codeberg\.org/[^/]+/[^/]+/raw/(?:branch|tag|commit)/[^/]+)/#', $address, $repository);
+        if ($onCodeberg) {
+            $top = $repository[1];
+        }
 
-        return preg_replace_callback('#\b(href|src)="([^"]*)"#i', function (array $match) use ($folder, $top, $onGitHub) {
+        return preg_replace_callback('#\b(href|src)="([^"]*)"#i', function (array $match) use ($folder, $top, $onGitHub, $onCodeberg) {
             $attribute = $match[1];
             $value = $match[2];
 
@@ -307,9 +318,12 @@ class ReadMeController extends AbstractApiController
             $start = str_starts_with($value, '/') ? $top : $folder;
             $full = htmlspecialchars($start, ENT_QUOTES) . $value;
 
-            // on GitHub, links (not images) go to GitHub's page for the file, which is easier to read
+            // on GitHub and Codeberg, links (not images) go to the site's page for the file, which is easier to read
             if ($onGitHub && strtolower($attribute) === 'href') {
                 $full = preg_replace('#^https://raw\.githubusercontent\.com/([^/]+)/([^/]+)/#', 'https://github.com/$1/$2/blob/', $full);
+            }
+            if ($onCodeberg && strtolower($attribute) === 'href') {
+                $full = preg_replace('#^(https://codeberg\.org/[^/]+/[^/]+/)raw/#', '$1src/', $full);
             }
 
             return $attribute . '="' . $full . '"';
