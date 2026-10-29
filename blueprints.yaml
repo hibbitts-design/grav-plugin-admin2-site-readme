@@ -1,7 +1,7 @@
 name: Admin2 Site ReadMe
 slug: admin2-site-readme
 type: plugin
-version: 0.9.3
+version: 0.9.4
 description: 'Shows a site''s own ReadMe in the Admin 2 sidebar, from a Markdown file on GitHub, Codeberg or in the site itself. The people editing a site can then read its how-tos where they work.'
 icon: book
 author:
@@ -77,7 +77,7 @@ form:
     sidebar_label:
       type: text
       label: 'Sidebar Label'
-      help: 'The name of the item in the Admin sidebar (the Page Title by default); a | marks where a long name may break.'
+      help: 'The name of the item in the Admin sidebar (the Page Title by default); keep it short, as longer names are cut off.'
       placeholder: 'Site ReadMe'
       size: medium
 
