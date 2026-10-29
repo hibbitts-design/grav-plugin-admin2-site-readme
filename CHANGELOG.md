@@ -1,5 +1,5 @@
 # v0.9.4
-## XX/XX/2026
+## 10/29/2026
 
 1. [](#improved)
     * Sidebar Label: a | no longer marks a line break, as Admin 2 now shows labels on one line
